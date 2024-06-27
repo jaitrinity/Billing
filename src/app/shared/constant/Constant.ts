@@ -15,7 +15,7 @@ export class Constant{
     public static NO_RECORDS_FOUND_CODE = "102001";
     public static NO_RECORD_FOUND = "No Record Found";
     public static TRINITY_PRIVATE_KEY = "TRINITYPRIVATEKEY";
-    public static GOOGLE_MAP_API_KEY = "AIzaSyDkv0_3UwK1Y_EpQ1LHQr5KA5oVBMc1160";
+    public static GOOGLE_MAP_API_KEY = "";
     public static SERVER_ERROR = "Server Error";
     public static MINUTES_UNITL_AUTO_LOGOUT = 30; // in mins
     public static CHECK_INTERVAL = 15000; // in ms
