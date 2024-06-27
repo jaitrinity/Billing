@@ -1,0 +1,11 @@
+.mytable th{
+    font-weight: 500;
+}
+.card-body{
+    padding: 0px;
+}
+.card-body .card-title{
+    background: #2E57A7;
+    color: white;
+    padding: 7px;
+}

@@ -1,0 +1,176 @@
+<div class="row mr-0">
+    <div class="col-md-2">
+        <label class="tvi-text-blue">Month *</label>
+        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="monthList"
+        [(ngModel)]="selectedMonthList" [settings]="singleSelectdropdownSettings">
+        </ng-multiselect-dropdown>
+    </div>
+    <div class="col-md-2">
+        <label class="tvi-text-blue">Operator </label>
+        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="operatorList"
+        [(ngModel)]="selectedOperatorList" [settings]="singleSelectdropdownSettings">
+        </ng-multiselect-dropdown>
+    </div>
+    <!-- <div class="col-md-2">
+        <label class="tvi-text-blue">Tenency </label>
+        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="tenencyList"
+        [(ngModel)]="selectedTenencyList" [settings]="singleSelectdropdownSettings">
+        </ng-multiselect-dropdown>
+    </div> -->
+    <div class="col-md-2">
+        <label class="label-transparent">0</label>
+        <button type="button" class="btn tvi-yellow text-white btn-sm" [disabled]="inProgress" (click)="getDashboard()">Dashboard</button>
+    </div>
+</div>
+<br>
+<div class="row mr-0" *ngIf="inProgress; else dashboard">
+    <div class="col-md-12">
+        <mat-progress-bar *ngIf="inProgress" mode="indeterminate"></mat-progress-bar>
+        <div class="text-center text-warning">Please wait..</div>
+    </div>
+</div>
+<br>
+<ng-template #dashboard>
+    <div class="row mr-0" *ngIf="selectedOperatorList.length != 0 && selectedMonthList.length != 0 && selectedTenencyList.length == 0">
+        <div class="col-md-6">
+            <div class="card text-left">
+                <div class="card-body">
+                    <h4 class="card-title border-bottom">EB Share - INR {{opEbSum}}</h4>
+                    <ngx-charts-pie-chart 
+                        [results]="opEbGraph"
+                        [legend]="false"
+                        [legendTitle]="'Circle'" 
+                        [view]="[600,300]"
+                        [trimLabels]="false"
+                        [labels]="true" >
+                    </ngx-charts-pie-chart>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-left">
+                <div class="card-body">
+                  <h4 class="card-title border-bottom">DG Share - INR {{opDgSum}}</h4>
+                    <ngx-charts-pie-chart 
+                        [results]="opDgGraph"
+                        [legend]="false"
+                        [legendTitle]="'Circle'" 
+                        [view]="[600,300]"
+                        [trimLabels]="false"
+                        [labels]="true" >
+                    </ngx-charts-pie-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mr-0" *ngIf="selectedMonthList.length != 0 && selectedTenencyList.length == 0">
+        <div class="col-md-4">
+            <div class="card text-left">
+              <div class="card-body">
+                <h4 class="card-title border-bottom">EB Share - INR {{ebShareSum}}</h4>
+                <ngx-charts-bar-vertical 
+                    [view]="[400,300]"
+                    [results]="ebShareGraph"
+                    [xAxisLabel]="'Operator'"
+                    [legendTitle]="'Product Sale Chart'"
+                    [yAxisLabel]="'EB Share'"
+                    [legend]="false"
+                    [showXAxisLabel]="false"
+                    [showYAxisLabel]="false"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [gradient]="false">
+                </ngx-charts-bar-vertical>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-left">
+              <div class="card-body">
+                <h4 class="card-title border-bottom">DG Share - INR {{dgShareSum}}</h4>
+                <ngx-charts-bar-vertical 
+                    [view]="[400,300]"
+                    [results]="dgShareGraph"
+                    [xAxisLabel]="'Operator'"
+                    [legendTitle]="'Product Sale Chart'"
+                    [yAxisLabel]="'DG Share'"
+                    [legend]="false"
+                    [showXAxisLabel]="false"
+                    [showYAxisLabel]="false"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [gradient]="false">
+                </ngx-charts-bar-vertical>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-left">
+              <div class="card-body">
+                <h4 class="card-title border-bottom">Total Share - INR {{totalShareSum}}</h4>
+                <ngx-charts-bar-vertical 
+                    [view]="[400,300]"
+                    [results]="dgShareGraph"
+                    [xAxisLabel]="'Operator'"
+                    [legendTitle]="'Product Sale Chart'"
+                    [yAxisLabel]="'DG Share'"
+                    [legend]="false"
+                    [showXAxisLabel]="false"
+                    [showYAxisLabel]="false"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [gradient]="false">
+                </ngx-charts-bar-vertical>
+              </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-12">
+            <div class="card text-left">
+              <div class="card-body">
+                <h4 class="card-title border-bottom">High Revenue Site</h4>
+                <ngx-charts-bar-vertical 
+                    [view]="[1200,300]"
+                    [results]="maxRevenueGraph"
+                    [xAxisLabel]="'Site Id'"
+                    [legendTitle]="'High revenue'"
+                    [yAxisLabel]="'Max revenue'"
+                    [legend]="true"
+                    [showXAxisLabel]="false"
+                    [showYAxisLabel]="false"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [gradient]="false">
+                </ngx-charts-bar-vertical>
+              </div>
+            </div>
+        </div> -->
+        <div class="col-md-12">
+            <div class="card text-left">
+              <div class="card-body">
+                <h4 class="card-title border-bottom">Site Count - {{siteSum}}</h4>
+                <ngx-charts-pie-grid 
+                  [results]="siteCountGraph" >
+                </ngx-charts-pie-grid>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mr-0" *ngIf="selectedTenencyList.length != 0 && selectedMonthList.length != 0 && selectedOperatorList.length == 0">
+        <div class="col-md-6">
+            <div class="card text-left">
+                <div class="card-body">
+                    <h4 class="card-title border-bottom">Tenency - {{tenencySum}}</h4>
+                    <ngx-charts-pie-chart 
+                        [results]="tenencyGraph"
+                        [legend]="false"
+                        [legendTitle]="'Circle'" 
+                        [view]="[600,300]"
+                        [trimLabels]="false"
+                        [labels]="true" >
+                    </ngx-charts-pie-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
